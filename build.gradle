@@ -1,0 +1,52 @@
+plugins {
+    id 'org.springframework.boot' version '2.5.4'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id 'pmd'
+}
+
+group = 'az.healthy'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    runtimeOnly 'org.postgresql:postgresql'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    //For Gradle, add to dependencies section of build.gradle
+    implementation 'com.cloudinary:cloudinary:1.0.2'
+    implementation group: 'com.cloudinary', name: 'cloudinary-core', version: '1.17.0'
+
+
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '6.6'
+    implementation group: 'io.minio', name: 'minio', version: '8.2.1'
+    implementation('io.springfox:springfox-swagger-ui:2.9.2')
+    implementation("io.springfox:springfox-swagger2:2.9.2") {
+        exclude module: 'mapstruct'
+    }
+    implementation "io.springfox:springfox-bean-validators:2.9.2"
+    implementation group: 'org.mapstruct', name: 'mapstruct', version: '1.4.2.Final'
+    annotationProcessor group: 'org.mapstruct', name: 'mapstruct-processor', version: '1.4.2.Final'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+    useJUnitPlatform()
+}
