@@ -4,6 +4,7 @@ import az.healthy.form.dto.UserRequestDto;
 import az.healthy.form.dto.UserResponseDto;
 import az.healthy.form.service.UserService;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,6 +16,10 @@ import javax.validation.Valid;
 public class UserController {
     private final UserService userService;
 
+    @Value("${minio.image-folder}")
+    private String imageFolder;
+    @Value("${minio.video-folder}")
+    private String videoFolder;
     public UserController(UserService userService) {
         this.userService = userService;
     }
@@ -48,24 +53,24 @@ public class UserController {
     @ApiOperation(value = "Add User File")
     public ResponseEntity<String> createImage(@PathVariable("id") Long id,
                                               @Valid @RequestParam MultipartFile file){
-        return ResponseEntity.status(200).body(userService.updatePhoto(file,id));
+        return ResponseEntity.status(200).body(userService.uploadImage(file,id));
     }
 
     @PutMapping("/image/{id}")
     @ApiOperation(value = "Update User File")
     public ResponseEntity<String> updateImage(@PathVariable("id")Long id,
                                               @Valid @RequestParam MultipartFile multipartFile){
-        return ResponseEntity.status(200).body(userService.updatePhoto(multipartFile,id));
+        return ResponseEntity.status(200).body(userService.updateImage(multipartFile,id));
     }
 
     @GetMapping("/image/{fileName}")
     @ApiOperation(value = "Get User photo")
     public byte [] getImage(@PathVariable("fileName") String fileName){
-        return userService.getMtiFile(fileName);
+        return userService.getFile(fileName,imageFolder);
     }
 
     @DeleteMapping("/image/{id}")
     public void deleteUserFile(@PathVariable Long id){
-        userService.deleteMtiFile(id);
+        userService.deleteUserImage(id);
     }
 }

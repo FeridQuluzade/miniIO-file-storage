@@ -4,6 +4,8 @@ import az.healthy.form.dto.UserRequestDto;
 import az.healthy.form.dto.UserResponseDto;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 public interface UserService {
     UserResponseDto create(UserRequestDto userRequestDto);
 
@@ -11,15 +13,22 @@ public interface UserService {
 
     UserResponseDto findById(Long id);
 
+
     UserResponseDto delete(Long id);
 
-    String uploadPhoto(MultipartFile file, Long id);
+    String uploadImage(MultipartFile file, Long id);
 
-    String updatePhoto(MultipartFile file, Long id);
+    String updateImage(MultipartFile file, Long id);
 
-    void deleteMtiFile(Long id);
+    void deleteUserImage(Long id);
 
-    void deleteMtiFile(String fileName);
+    void deleteFile(String fileName, String folder);
 
-    byte[] getMtiFile(String fileName);
+    byte[] getFile(String fileName, String folder);
+
+    String uploadVideo(MultipartFile file, Long id);
+
+    String updateVideo(MultipartFile file, Long id);
+
+    void deleteUserVideo(Long id);
 }

@@ -12,5 +12,6 @@ public class UserResponseDto {
     private Long id;
     private String name;
     private String surname;
-    private String mti;
+    private String photo;
+    private String video;
 }
